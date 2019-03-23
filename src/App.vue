@@ -7,13 +7,9 @@
 
 <script>
 import ImageComponent from './components/Image.vue';
-import axios from 'axios';
+import * as ApiInterface from './api_interface.js'; 
 
-const baseUrl = 'https://api.nasa.gov/mars-photos/api/v1/';
-const endpoint = 'rovers/curiosity/photos';
-const apiKey = 'h7J2ZGwupdhbIPmMtxf7tZAFfpOq09Qf13NbkW8g';
 const now = new Date();
-const requestUrl = `${baseUrl}${endpoint}?earth_date=${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()-1}&api_key=${apiKey}`;
 
 export default {
   name: 'app',
@@ -28,10 +24,8 @@ export default {
   },
   mounted: function() {
     //Make HTTP request to API to retrieve list of images:
-    axios
-      .get(requestUrl)
-      .then(response => {
-        this.images = response.data.photos;
+    ApiInterface.getImages().then(response => {
+      this.images = response;
     });
   }
 }
