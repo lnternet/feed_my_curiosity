@@ -47,15 +47,10 @@ export default {
   },
   methods: {
     refreshImages: function() {
-      ApiInterface.getImages(this.year, this.month, this.day).then(response => {
-        this.images = response;
-      });
+      ApiInterface.getImages(this.year, this.month, this.day).then(response => { this.images = response; });
     },
     getManifest: function() {
-      ApiInterface.getMissionManifest().then(response => { 
-        this.manifest = response;
-        console.log(this.manifest)
-        });
+      ApiInterface.getMissionManifest().then(response => { this.manifest = response });
     }
   }
 }
