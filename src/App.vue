@@ -30,27 +30,33 @@ export default {
   data: function() {
     return {
       images: null,
-      year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
-      day: new Date().getDate() - 2,
-      manifest: {
-        name: null
-      }
+      year: null,
+      month: null,
+      day: null,
+      manifest: { }
     }
   },
   mounted: function() {
     //Get mission manifest:
     this.getManifest();
-
-    //Make HTTP request to API to retrieve list of images:
-    this.refreshImages();
   },
   methods: {
     refreshImages: function() {
-      ApiInterface.getImages(this.year, this.month, this.day).then(response => { this.images = response; });
+      let date = `${this.year}-${this.month}-${this.day}`;
+      ApiInterface.getImages(date).then(response => { this.images = response; });
     },
     getManifest: function() {
-      ApiInterface.getMissionManifest().then(response => { this.manifest = response });
+      ApiInterface.getMissionManifest().then(response => { 
+        this.manifest = response;
+        let dateParts = this.manifest.max_date.split('-');
+        this.year = dateParts[0];
+        this.month = dateParts[1];
+        this.day = dateParts[2];
+        this.getInitialImages(); 
+        });
+    },
+    getInitialImages: function() {
+      ApiInterface.getImages(this.manifest.max_date).then(response => { this.images = response; });
     }
   }
 }
