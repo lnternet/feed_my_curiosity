@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <h1>Images from <b>Curiosity</b> rover from yesterday ({{today.getFullYear()}} / {{today.getMonth() + 1}} / {{today.getDate() - 1}})</h1>
+    Year:<input v-model="year"> Month:<input v-model="month"> Day:<input v-model="day"><button v-on:click="refreshImages()">Show</button>
+    <h1>Images from <b>Curiosity</b> rover from {{year}} / {{month}} / {{day}}</h1>
     <ImageComponent v-for="image in images" :key="image.id" :title="image.camera.full_name" :url="image.img_src" />
   </div>
 </template>
@@ -8,8 +9,6 @@
 <script>
 import ImageComponent from './components/Image.vue';
 import * as ApiInterface from './api_interface.js'; 
-
-const now = new Date();
 
 export default {
   name: 'app',
@@ -19,14 +18,21 @@ export default {
   data: function() {
     return {
       images: null,
-      today: now
+      year: new Date().getFullYear(),
+      month: new Date().getMonth() + 1,
+      day: new Date().getDate() - 2
     }
   },
   mounted: function() {
     //Make HTTP request to API to retrieve list of images:
-    ApiInterface.getImages().then(response => {
-      this.images = response;
-    });
+    this.refreshImages();
+  },
+  methods: {
+    refreshImages: function() {
+      ApiInterface.getImages(this.year, this.month, this.day).then(response => {
+        this.images = response;
+      });
+    }
   }
 }
 </script>
@@ -39,5 +45,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+button {
+  margin-left: 20px;
 }
 </style>
