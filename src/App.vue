@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <img id="logo" src="./assets/mars_planet.png" />
     <h1>Mission manifest:</h1>
     <div class="mission_info">
       <span>
@@ -78,5 +79,9 @@ button {
   text-align: left;
   display: inline-block;
   margin-bottom: 100px;
+}
+#logo {
+  width: 15%;
+  margin-bottom: 0px !important;
 }
 </style>
