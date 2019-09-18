@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img id="logo" src="./assets/mars_planet.png" />
+    <img id="logo" src="./assets/mars.svg" />
     <h1>Mission manifest:</h1>
     <div class="mission_info">
       <span>
@@ -70,7 +70,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 10px;
 }
 button {
   margin-left: 20px;
@@ -81,7 +81,7 @@ button {
   margin-bottom: 100px;
 }
 #logo {
-  width: 15%;
-  margin-bottom: 0px !important;
+  width: 20%;
+  margin-bottom: -40px !important;
 }
 </style>
