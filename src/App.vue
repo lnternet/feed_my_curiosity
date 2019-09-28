@@ -1,20 +1,22 @@
 <template>
   <div id="app">
     <img id="logo" src="./assets/mars.svg" />
-    <h1>Mission manifest:</h1>
+    <h1>Curiosity rover mission manifest</h1>
     <div class="mission_info">
       <span>
-        <b>Rover:</b> {{manifest.name}}<br/>
-        <b>Launched:</b> {{manifest.launch_date}}<br/>
-        <b>Landed:</b> {{manifest.landing_date}}<br/>
-        <b>Status:</b> {{manifest.status}}<br/>
-        <b>Total amount of photos taken:</b> {{manifest.total_photos}}<br/>
-        <b>Date of last set of photos:</b> {{manifest.max_date}}<br/>
+        <b>Launched from Earth:</b> {{manifest.launch_date}}<br/>
+        <b>Landed on Mars:</b> {{manifest.landing_date}}<br/>
+        <b>Current status:</b> {{manifest.status}}<br/>
+        <b>Total amount of pictures taken:</b> {{manifest.total_photos}}<br/>
+        <b>Last set of pictures received on:</b> {{manifest.max_date}}<br/>
       </span>
     </div>
     <br/>
-    Year:<input v-model="year"> Month:<input v-model="month"> Day:<input v-model="day"><button v-on:click="refreshImages()">Show</button>
-    <h1>Images from <b>Curiosity</b> rover from {{year}} / {{month}} / {{day}}</h1>
+    <hr>
+    <p>View what pictures Curiosity rover made on any specific date using input fields below:</p>
+    Year:<input v-model="year"> Month:<input v-model="month"> Day:<input v-model="day"><button v-on:click="refreshImages()">Load pictures</button>
+    <hr>
+    <!-- <h2>Images from <b>Curiosity</b> rover from {{year}}-{{month}}-{{day}}</h2> -->
     <ImageComponent v-for="image in images" :key="image.id" :title="image.camera.full_name" :url="image.img_src" />
   </div>
 </template>
@@ -78,10 +80,20 @@ button {
 .mission_info {
   text-align: left;
   display: inline-block;
-  margin-bottom: 100px;
 }
 #logo {
   width: 20%;
+  min-width: 140px;
   margin-bottom: -40px !important;
+}
+input {
+  width: 40px;
+  text-align: center;
+}
+hr {
+  width: 70%;
+  opacity: 0.2;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 </style>
